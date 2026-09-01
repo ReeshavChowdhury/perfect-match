@@ -1,0 +1,21 @@
+PerfectMatch v5 build instructions
+
+Requirements: Go 1.22 or newer.
+
+Build the main executable:
+
+  go build -mod=vendor -o bin/perfectmatch-best ./cmd/perfectmatch
+
+Build the v5 HMM binaries:
+
+  make -C ma_hmm_matrixmm_v5 all
+
+Run the unit/build checks:
+
+  go test ./...
+
+Run the main executable:
+
+  ./bin/perfectmatch-best
+
+No benchmark results or experimental reports are included in this source copy.
