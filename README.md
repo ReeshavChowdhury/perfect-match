@@ -1,7 +1,6 @@
 # PerfectMatch
 
-Encrypted matrix computation implementations and comparisons built with
-Lattigo v5.
+Code for PerfectMatch, Ma HMM, and HMT transpose using Lattigo v5.
 
 ## Requirements
 
