@@ -1,21 +1,30 @@
 PerfectMatch v5 build instructions
 
-Requirements: Go 1.22 or newer.
+Requirements: Go 1.22 or newer. Run from the repository root.
 
-Build the main executable:
+Build the main executable (PerfectMatch + Jiang HMM):
 
-  go build -mod=vendor -o bin/perfectmatch-best ./cmd/perfectmatch
+  make build
+  # or: go build -mod=vendor -o bin/perfectmatch-best ./cmd/perfectmatch
 
-Build the v5 HMM binaries:
+Rizomiliotis–Triakosia HMM:
 
   make -C ma_hmm_matrixmm_v5 all
+  GOMAXPROCS=20 ./ma_hmm_matrixmm_v5/bin/hmm-v5-safe -d 64 -k 4 -workers 20 -warmups 1 -trials 10
 
-Run the unit/build checks:
+Jiang HMM (must set PERFECTMATCH_JIANGMM=1, PERFECTMATCH_BEST=1, and ADAPTIVE_D):
+
+  make jiangmm-d64
+  # or:
+  GOMAXPROCS=20 PERFECTMATCH_JIANGMM=1 PERFECTMATCH_BEST=1 ADAPTIVE_D=64 \
+    PERFECTMATCH_WARMUPS=1 PERFECTMATCH_TRIALS=10 ./bin/perfectmatch-best
+
+HMT transpose:
+
+  make -C hmt_transpose build
+
+Tests:
 
   go test ./...
 
-Run the main executable:
-
-  ./bin/perfectmatch-best
-
-No benchmark results or experimental reports are included in this source copy.
+See README.md for flags, CKKS parameters, and the full (d,k) table.
